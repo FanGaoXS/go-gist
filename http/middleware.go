@@ -29,14 +29,21 @@ func Metric(handler http.Handler) http.HandlerFunc {
 	}
 }
 
+const (
+	ListenAddr = "10.0.0.101:8080"
+)
+
 func mid() {
 	handler := http.NewServeMux()
+
 	//handler.Handle("/", WithLogger(Metric(index())))
 	handler.HandleFunc("/", WithLogger(Metric(index())))
 	handler.HandleFunc("/ping/", WithLogger(Metric(ping())))
+
 	s := &http.Server{
-		Addr:    ":8080",
+		Addr:    ListenAddr,
 		Handler: handler,
 	}
+	log.Printf("server listen on %s", ListenAddr)
 	s.ListenAndServe()
 }

@@ -1,0 +1,8 @@
+go-gist.com {
+	tls /Users/admin/go-gist.com.pem  /Users/admin/go-gist.com-key.pem
+
+    route /rest/* {
+        uri strip_prefix /rest
+        reverse_proxy http://10.0.0.101:8080
+    }
+}
