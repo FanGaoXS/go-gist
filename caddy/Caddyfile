@@ -1,0 +1,17 @@
+apps.com {
+	tls /Users/admin/.mkcert/apps.com.pem  /Users/admin/.mkcert/apps.com-key.pem
+
+    # apps.com/app1/ping -> http://10.0.0.1:8080/ping
+    route /app1/* {
+        uri strip_prefix /app1
+        reverse_proxy http://10.0.0.1:8080
+    }
+    route /app2/* {
+        uri strip_prefix /app2
+        reverse_proxy http://10.0.0.2:8080
+    }
+    route /app3/* {
+        uri strip_prefix /app3
+        reverse_proxy http://10.0.0.3:8080
+    }
+}

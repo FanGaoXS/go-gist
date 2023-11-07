@@ -1,5 +1,5 @@
 go-gist.com {
-	tls /Users/admin/go-gist.com.pem  /Users/admin/go-gist.com-key.pem
+	tls /Users/admin/.mkcert/go-gist.com.pem  /Users/admin/.mkcert/go-gist.com-key.pem
 
     route /rest/* {
         uri strip_prefix /rest
