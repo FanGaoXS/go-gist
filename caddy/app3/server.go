@@ -7,7 +7,7 @@ import (
 
 const (
 	AppName    = "app3"
-	ListenAddr = "10.0.0.3:8080"
+	ListenAddr = "127.0.0.1:8083"
 )
 
 func serve() {

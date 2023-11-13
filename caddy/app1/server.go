@@ -9,7 +9,7 @@ import (
 
 const (
 	AppName    = "app1"
-	ListenAddr = "10.0.0.1:8080"
+	ListenAddr = "127.0.0.1:8081"
 )
 
 func serve() {
@@ -17,7 +17,7 @@ func serve() {
 	handler.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "Welcome %s!", AppName)
 	})
-	handler.GET("/ping", func(c *gin.Context) {
+	handler.GET("ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "%s pong!", AppName)
 	})
 
