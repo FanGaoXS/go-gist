@@ -1,3 +1,9 @@
+www.apps.com {
+    tls /Users/admin/.mkcert/www.apps.com.pem  /Users/admin/.mkcert/www.apps.com-key.pem
+
+    redir https://apps.com{uri}
+}
+
 apps.com {
     tls /Users/admin/.mkcert/apps.com.pem  /Users/admin/.mkcert/apps.com-key.pem
 
