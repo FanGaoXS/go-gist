@@ -14,7 +14,7 @@ func New(addr, topic string) (*Writer, error) {
 		Topic: topic,
 		//Balancer:               &kafka.Hash{},
 		WriteTimeout:           1 * time.Second,
-		RequiredAcks:           kafka.RequireNone,
+		RequiredAcks:           kafka.RequireAll,
 		AllowAutoTopicCreation: true,
 	}
 	return &Writer{
