@@ -1,5 +1,12 @@
 package stack
 
+type Type int
+
+const (
+	Array Type = iota
+	Linked
+)
+
 type Stack interface {
 	Size() int
 	Empty() bool
@@ -9,30 +16,34 @@ type Stack interface {
 	Peek() any
 }
 
-func New() Stack {
-	return &stackImpl{
-		elements: make([]any, 0, 0),
+func New(t Type) Stack {
+	if t == Array {
+		return &arrayStack{
+			elements: make([]any, 0, 0),
+		}
 	}
+
+	return &linkedStack{size: 0, top: nil}
 }
 
-type stackImpl struct {
+type arrayStack struct {
 	elements []any
 }
 
-func (s *stackImpl) Size() int {
+func (s *arrayStack) Size() int {
 	return len(s.elements)
 }
 
-func (s *stackImpl) Empty() bool {
+func (s *arrayStack) Empty() bool {
 	return s.Size() == 0
 }
 
-func (s *stackImpl) Push(o any) bool {
+func (s *arrayStack) Push(o any) bool {
 	s.elements = append(s.elements, o)
 	return true
 }
 
-func (s *stackImpl) Pop() any {
+func (s *arrayStack) Pop() any {
 	if s.Empty() {
 		return nil
 	}
@@ -43,10 +54,58 @@ func (s *stackImpl) Pop() any {
 	return last
 }
 
-func (s *stackImpl) Peek() any {
+func (s *arrayStack) Peek() any {
 	if s.Empty() {
 		return nil
 	}
 
 	return s.elements[s.Size()-1]
+}
+
+type linkedStackNode struct {
+	val  any
+	next *linkedStackNode
+}
+
+type linkedStack struct {
+	size int
+	top  *linkedStackNode
+}
+
+func (l *linkedStack) Size() int {
+	return l.size
+}
+
+func (l *linkedStack) Empty() bool {
+	return l.size == 0
+}
+
+func (l *linkedStack) Push(val any) bool {
+	l.top = &linkedStackNode{
+		val:  val,
+		next: l.top,
+	}
+	l.size++
+
+	return true
+}
+
+func (l *linkedStack) Pop() any {
+	if l.Empty() {
+		return nil
+	}
+
+	last := l.top
+	l.top = l.top.next
+	l.size--
+
+	return last.val
+}
+
+func (l *linkedStack) Peek() any {
+	if l.Empty() {
+		return nil
+	}
+
+	return l.top.val
 }
